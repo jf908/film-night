@@ -8,7 +8,6 @@
     isSameDay,
     startOfMonth,
     startOfWeek,
-    sub,
   } from 'date-fns';
   import MovieBox from './MovieBox.svelte';
   import type { FullEvent } from '$lib/event';

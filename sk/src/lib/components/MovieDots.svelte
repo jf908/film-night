@@ -21,7 +21,7 @@
 </script>
 
 <Popover
-  class="btn bg-black text-3xl px-1 rounded {$$props.class ?? ''}"
+  class="btn bg-white dark:bg-black text-3xl px-1 rounded {$$props.class ?? ''}"
   options={{ placement: 'bottom-end' }}
   on:open={loadData}
 >

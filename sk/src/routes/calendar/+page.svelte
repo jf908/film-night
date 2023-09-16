@@ -11,18 +11,18 @@
 
   let records: FullEvent[] = [];
 
-  events
-    .getFullList<FullEvent>({
+  async function updateEvents(startDate: Date) {
+    records = await events.getFullList<FullEvent>({
       filter: `datetime >= "${formatISO(startDate, {
         representation: 'date',
       })}" && datetime <= "${formatISO(endOfMonth(startDate), {
         representation: 'date',
       })}"`,
       expand: 'watching,attended',
-    })
-    .then((res) => {
-      records = res;
     });
+  }
+
+  $: updateEvents(startDate);
 </script>
 
 <div class="flex flex-col gap-2 items-center p-2">

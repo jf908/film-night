@@ -18,7 +18,7 @@
   <section class="prose text-center">
     <h3>Login</h3>
   </section>
-  <div class="form-control">
+  <!-- <div class="form-control">
     <label class="label" for="username">
       <span class="label-text">Username</span>
     </label>
@@ -30,12 +30,16 @@
       <span class="label-text">Password</span>
     </label>
     <input id="password" class="input" type="password" />
-  </div>
+  </div> -->
 
+  <button
+    class="btn bg-#5865F2 hover:bg-#454FBF text-white w-full mt-4"
+    on:click={() => loginWithDiscord()}><span class="i-simple-icons-discord" /> Discord</button
+  >
   {#if dev}
     <button class="btn w-full mt-4" on:click={devLogin}>Dev Login</button>
   {/if}
-  <button class="btn btn-primary w-full mt-4">Login</button>
+  <!-- <button class="btn btn-primary w-full mt-4">Login</button> -->
   <p class="mt-4 text-sm text-center">
     <a href="/register" class="link">Create account</a>
   </p>
