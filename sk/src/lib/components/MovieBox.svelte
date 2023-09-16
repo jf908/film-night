@@ -6,13 +6,14 @@
   import Tooltip from './Tooltip.svelte';
   import Badge from './Badge.svelte';
   import IntentStatus from './IntentStatus.svelte';
+  import MovieDots from './MovieDots.svelte';
 
   export let movie: MovieResponse;
   export let intent: string | null = null;
   export let size: 'sm' | 'md' = 'md';
 </script>
 
-<Tooltip options={{ placement: 'right' }} class="relative">
+<Tooltip options={{ placement: 'right' }} class="group relative">
   <a
     class="relative flex flex-col gap-1 text-fg-muted hover:text-link-accent"
     href="/movie/{movie.id}"
@@ -26,7 +27,13 @@
       {movie.title}
     </div>
   </a>
-  <div slot="tooltip" class="bg-black rounded p-6 shadow-xl">
+  {#if movie.id}
+    <div class="absolute right-1 top-1 invisible group-hover:visible flex flex-col items-end gap-2">
+      <slot name="hover" />
+      <MovieDots id={movie.id} />
+    </div>
+  {/if}
+  <div slot="tooltip" class="bg-black text-white rounded p-6 shadow-xl">
     {#if movie.release_date}
       <div class="text-xl">{format(parseISO(movie.release_date), 'Y MMM')}</div>
     {/if}

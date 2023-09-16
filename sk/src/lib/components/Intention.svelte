@@ -27,11 +27,11 @@
 </script>
 
 <TooltipGroup>
-  <menu class="flex bg-base-muted p-1">
+  <menu class="flex bg-base-muted rounded p-1">
     <li>
       <Tooltip>
         <button
-          class="btn p-3 bg-base-muted hover:bg-base-subtle"
+          class="btn p-3 bg-base-muted"
           class:want-active={value === 'want'}
           on:click={() => setIntent('want')}><span class="text-xl i-ph-thumbs-up-fill" /></button
         >

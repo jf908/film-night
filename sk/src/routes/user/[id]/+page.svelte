@@ -1,6 +1,7 @@
 <script lang="ts">
   import Avatar from '$lib/components/Avatar.svelte';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
+  import Pagination from '$lib/components/Pagination.svelte';
   import Title from '$lib/components/Title.svelte';
   import { watch } from '$lib/pocketbase';
   import type { MediaResponse, UserMediaResponse } from '$lib/pocketbase/pocketbase-types.js';
@@ -41,4 +42,9 @@
     movies={$library.items.map((m) => m.expand.media.metadata)}
     intents={$library.items.map((m) => m.intent)}
   />
+  {#if $library.totalPages > 1}
+    <div class="flex justify-center mt-4">
+      <Pagination {...$library} on:setPage={(e) => library.setPage(e.detail)} />
+    </div>
+  {/if}
 </div>

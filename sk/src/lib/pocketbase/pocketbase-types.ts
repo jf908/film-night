@@ -5,6 +5,7 @@
 export enum Collections {
 	Event = "event",
 	Media = "media",
+	Suggestion = "suggestion",
 	UserMedia = "user_media",
 	Users = "users",
 }
@@ -49,6 +50,12 @@ export type MediaRecord<Tmetadata = unknown> = {
 	type: MediaTypeOptions
 }
 
+export type SuggestionRecord = {
+	media?: RecordIdString
+	user?: RecordIdString
+	active?: boolean
+}
+
 export enum UserMediaIntentOptions {
 	"want" = "want",
 	"dont" = "dont",
@@ -69,6 +76,7 @@ export type UsersRecord = {
 // Response types include system fields and match responses from the PocketBase API
 export type EventResponse<Texpand = unknown> = Required<EventRecord> & BaseSystemFields<Texpand>
 export type MediaResponse<Tmetadata = unknown, Texpand = unknown> = Required<MediaRecord<Tmetadata>> & BaseSystemFields<Texpand>
+export type SuggestionResponse<Texpand = unknown> = Required<SuggestionRecord> & BaseSystemFields<Texpand>
 export type UserMediaResponse<Texpand = unknown> = Required<UserMediaRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
@@ -77,6 +85,7 @@ export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSyste
 export type CollectionRecords = {
 	event: EventRecord
 	media: MediaRecord
+	suggestion: SuggestionRecord
 	user_media: UserMediaRecord
 	users: UsersRecord
 }
@@ -84,6 +93,7 @@ export type CollectionRecords = {
 export type CollectionResponses = {
 	event: EventResponse
 	media: MediaResponse
+	suggestion: SuggestionResponse
 	user_media: UserMediaResponse
 	users: UsersResponse
 }

@@ -72,7 +72,7 @@
 
 {#each showing as k (k)}
   <div
-    class="absolute z-10"
+    class="fixed z-10"
     use:tooltip
     in:receive={{ key: k }}
     out:send={{ key: k }}

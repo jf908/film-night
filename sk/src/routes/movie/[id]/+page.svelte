@@ -4,6 +4,7 @@
   import Title from '$lib/components/Title.svelte';
   import Tooltip from '$lib/components/Tooltip.svelte';
   import TooltipGroup from '$lib/components/TooltipGroup.svelte';
+  import Watched from '$lib/components/Watched.svelte';
   import { coalesceCrew } from '$lib/tmdb/tmdb-util.js';
   import { formatDuration } from '$lib/util.js';
 
@@ -43,8 +44,9 @@
 <section class="max-w-6xl px-2 w-full mx-auto">
   <section class="ml-220px flex">
     {#if movie.id}
-      <div class="ml-8">
+      <div class="flex items-center gap-2 ml-8">
         <Intention id={movie.id} value={movie.expand?.user_media?.intent} />
+        <Watched id={movie.id} value={movie.expand?.user_media?.watches} />
       </div>
     {/if}
     <div class="ml-auto text-4xl flex gap-4 p-3 items-center leading-1">

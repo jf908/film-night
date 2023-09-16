@@ -33,7 +33,7 @@
   </div>
 
   {#if dev}
-    <button class="btn w-full" on:click={devLogin}>Dev Login</button>
+    <button class="btn w-full mt-4" on:click={devLogin}>Dev Login</button>
   {/if}
   <button class="btn btn-primary w-full mt-4">Login</button>
   <p class="mt-4 text-sm text-center">

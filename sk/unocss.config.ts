@@ -39,7 +39,7 @@ export default defineConfig({
     // Input
     input: 'w-full dark:bg-base-subtle rounded-md border-border shadow-sm sm:text-sm',
     // Btn
-    btn: 'inline-flex gap-2 rounded cursor-pointer shrink-0 flex-wrap select-none items-center justify-center text-center min-h-2.5rem h-2.5rem px-5 text-sm',
+    btn: 'inline-flex gap-2 rounded cursor-pointer shrink-0 flex-wrap select-none items-center justify-center text-center min-h-2.5rem h-2.5rem px-5 text-sm hover:bg-base-subtle font-500',
     'btn-primary': 'bg-blue-600 text-white hover:bg-blue-500',
     'btn-success': 'bg-green-600 text-white hover:bg-green-500',
     'btn-danger': 'bg-red-600 text-white hover:bg-red-500',

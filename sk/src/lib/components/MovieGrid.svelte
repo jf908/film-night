@@ -9,7 +9,9 @@
 <div class="grid gap-4">
   {#each movies as movie, i (movie.id)}
     <div class="flex justify-center">
-      <MovieBox {movie} intent={intents[i]} />
+      <MovieBox {movie} intent={intents[i]}>
+        <slot name="hover" slot="hover" id={movie.id ?? -1} />
+      </MovieBox>
     </div>
   {/each}
 </div>

@@ -66,10 +66,17 @@ export interface PageStore<T = any> extends Readable<ListResult<T>> {
 export function watch<T extends { id?: string }>(
   idOrName: string,
   queryParams = {} as any,
-  additionalSubscriptions?: { collection: string; key: string }[],
+  {
+    additionalSubscriptions,
+    overrideSubscriptionCollection,
+    updateFilter,
+  }: {
+    additionalSubscriptions?: { collection: string; key: string }[];
+    updateFilter?: (record: T) => boolean;
+    overrideSubscriptionCollection?: string;
+  } = {},
   page = 1,
-  perPage = 20,
-  overrideSubscriptionCollection?: string
+  perPage = 20
 ): PageStore<T> {
   const collection = pb.collection(idOrName);
   let result = new ListResult(page, perPage, 0, 0, [] as T[]);
@@ -88,10 +95,17 @@ export function watch<T extends { id?: string }>(
       (overrideSubscriptionCollection ? pb.collection(overrideSubscriptionCollection) : collection)
         .subscribe<T>('*', ({ action, record }) => {
           (async function (action: string) {
+            console.log('Action', action, record);
             // see https://github.com/pocketbase/pocketbase/discussions/505
             switch (action) {
               case 'update':
                 record = await expand(queryParams.expand, record);
+
+                if (updateFilter && !updateFilter(record)) {
+                  console.log('Filter out');
+                  return result.items.filter((item) => item.id !== record.id);
+                }
+
                 return result.items.map((item) => (item.id === record.id ? record : item));
               case 'create':
                 record = await expand(queryParams.expand, record);

@@ -14,16 +14,18 @@
     <img class="dark-invert" src="/icon.svg" alt="" />
     <h1 class="font-bold text-xl">Film Night</h1>
   </a>
-  <a
-    href="/calendar"
-    class="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-2 flex items-center gap-1"
-    ><span class="i-ph-calendar text-xl" />Calendar</a
-  >
-  <a
-    href="/table"
-    class="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-2 flex items-center gap-1"
-    ><span class="i-ph-chart-pie text-xl" /> Round Table</a
-  >
+  {#if $authModel}
+    <a
+      href="/calendar"
+      class="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-2 flex items-center gap-1"
+      ><span class="i-ph-calendar text-xl" />Calendar</a
+    >
+    <a
+      href="/table"
+      class="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-2 flex items-center gap-1"
+      ><span class="i-ph-chart-pie text-xl" /> Round Table</a
+    >
+  {/if}
   <button
     class="ml-auto flex items-center p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded select-none"
     on:click={() => theme.toggle()}

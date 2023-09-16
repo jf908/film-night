@@ -28,7 +28,6 @@
     "@unocss/extractor-svelte": "^0.55.1",
     "@unocss/reset": "^0.55.1",
     "date-fns": "^2.30.0",
-    "lodash": "^4.17.21",
     "moviedb-promise": "^3.4.1",
     "pocketbase": "^0.16.0",
     "pocketbase-typegen": "^1.1.12",

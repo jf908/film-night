@@ -10,7 +10,7 @@ routerAdd('GET', '/api/search', (c) => {
   const { searchMovie } = require('./pb_hooks/movieDb');
 
   const query = c.queryParam('q');
-  const res = searchMovie(token, { query });
+  const res = searchMovie(token, { query, include_adult: 'false' });
   return c.json(200, res);
 });
 
