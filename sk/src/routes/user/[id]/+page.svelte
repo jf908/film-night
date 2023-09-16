@@ -8,12 +8,19 @@
 
   export let data;
 
-  function createFilter(value: string) {
-    return `user.id = "${data.user.id}" && intent = "${value}"`;
+  function createFilter({ intent, watched }: { intent?: string; watched?: boolean }) {
+    const filter = [`user.id = "${data.user.id}"`];
+    if (intent) {
+      filter.push(`intent = "${intent}"`);
+    }
+    if (watched) {
+      filter.push('watches >= 1');
+    }
+    return filter.join(' && ');
   }
 
   const library = watch<UserMediaResponse<{ media: MediaResponse }>>('user_media', {
-    filter: createFilter('want'),
+    filter: createFilter({ intent: 'want' }),
     expand: 'media',
   });
 </script>
@@ -31,11 +38,20 @@
 
 <div class="p-8">
   <div class="flex gap-2 justify-center mb-8">
-    <button class="btn btn-success" on:click={() => library.setFilter(createFilter('want'))}
-      >Want</button
+    <button
+      class="btn btn-primary"
+      on:click={() => library.setFilter(createFilter({ watched: true }))}
+      ><span class="i-ph-clock-clockwise text-xl" /> Watched</button
     >
-    <button class="btn btn-danger" on:click={() => library.setFilter(createFilter('dont'))}
-      >Don't want</button
+    <button
+      class="btn btn-success"
+      on:click={() => library.setFilter(createFilter({ intent: 'want' }))}
+      ><span class="i-ph-thumbs-up text-xl" /> Want</button
+    >
+    <button
+      class="btn btn-danger"
+      on:click={() => library.setFilter(createFilter({ intent: 'dont' }))}
+      ><span class="i-ph-thumbs-down text-xl" /> Don't want</button
     >
   </div>
   <MovieGrid
