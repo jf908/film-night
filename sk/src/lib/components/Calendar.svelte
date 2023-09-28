@@ -65,7 +65,9 @@
             {#if event.expand?.watching.metadata}
               <MovieBox movie={event.expand.watching.metadata} size="sm">
                 <div slot="tooltip" class="mt-4 text-sm">
-                  Attended by: {event.expand.attended?.map((u) => u.name).join(', ')}
+                  {#if event.expand.attended}
+                    Attended by: {event.expand.attended.map((u) => u.name).join(', ')}
+                  {/if}
                 </div>
               </MovieBox>
             {/if}
