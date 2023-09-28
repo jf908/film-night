@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    environment:
+      - TMDB_ACCESS_TOKEN=${TMDB_ACCESS_TOKEN}
+    ports:
+      - 8090:8090
+    volumes:
+      - pb:/app/pb/pb_data
+volumes:
+  pb:

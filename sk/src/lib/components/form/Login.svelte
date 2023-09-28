@@ -3,6 +3,15 @@
   import { pb } from '$lib/pocketbase';
   import { dev } from '$app/environment';
 
+  let passwordLoginEnabled = false;
+  let username = '';
+  let password = '';
+
+  async function loginWithPassword(e: SubmitEvent) {
+    await pb.collection('users').authWithPassword(username, password);
+    goto('/');
+  }
+
   async function loginWithDiscord() {
     await pb.collection('users').authWithOAuth2({ provider: 'discord' });
     goto('/');
@@ -18,19 +27,25 @@
   <section class="prose text-center">
     <h3>Login</h3>
   </section>
-  <!-- <div class="form-control">
-    <label class="label" for="username">
-      <span class="label-text">Username</span>
-    </label>
-    <input id="username" class="input" type="text" />
-  </div>
+  {#if passwordLoginEnabled}
+    <form on:submit|preventDefault={loginWithPassword}>
+      <div class="form-control">
+        <label class="label" for="username">
+          <span class="label-text">Username</span>
+        </label>
+        <input id="username" class="input" type="text" required bind:value={username} />
+      </div>
 
-  <div class="form-control">
-    <label class="label" for="password">
-      <span class="label-text">Password</span>
-    </label>
-    <input id="password" class="input" type="password" />
-  </div> -->
+      <div class="form-control">
+        <label class="label" for="password">
+          <span class="label-text">Password</span>
+        </label>
+        <input id="password" class="input" type="password" required bind:value={password} />
+      </div>
+
+      <button class="btn btn-primary w-full mt-4">Login</button>
+    </form>
+  {/if}
 
   <button
     class="btn bg-#5865F2 hover:bg-#454FBF text-white w-full mt-4"
@@ -39,7 +54,6 @@
   {#if dev}
     <button class="btn w-full mt-4" on:click={devLogin}>Dev Login</button>
   {/if}
-  <!-- <button class="btn btn-primary w-full mt-4">Login</button> -->
   <p class="mt-4 text-sm text-center">
     <a href="/register" class="link">Create account</a>
   </p>
