@@ -3,5 +3,5 @@ import type { EventResponse, MediaResponse, UsersResponse } from './pocketbase/p
 
 export type FullEvent = EventResponse<{
   watching: MediaResponse<MovieResponse>;
-  attended: UsersResponse[];
+  attended?: UsersResponse[];
 }>;
