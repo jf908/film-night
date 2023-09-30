@@ -48,19 +48,23 @@
   });
 </script>
 
-<div class="grid grid-cols-7 gap-1px bg-border border-border border-1">
+<div class="md:grid grid-cols-7 gap-1px bg-border border-border border-1">
   {#each weekDays as day}
-    <div class="mx--1 mt--1 text-center bg-base">
+    <div class="mx--1 mt--1 text-center bg-base hidden md:block">
       {day}
     </div>
   {/each}
   {#each gridElements as day}
-    <div class="p-2 flex flex-col bg-base overflow-hidden">
+    <div
+      class="p-4 md:p-2 md:flex flex-col bg-base overflow-hidden w-80vw md:w-auto"
+      class:hidden={!day?.events.length}
+      class:flex={!!day?.events.length}
+    >
       {#if day}
         <div class="text-right">
           {day.date.getDate()}
         </div>
-        <div>
+        <div class="flex justify-center">
           {#each day.events as event}
             {#if event.expand?.watching.metadata}
               <MovieBox movie={event.expand.watching.metadata} size="sm">
@@ -76,4 +80,7 @@
       {/if}
     </div>
   {/each}
+  {#if events.length === 0}
+    <div class="bg-base p-3 block md:hidden">Nothing this month</div>
+  {/if}
 </div>
