@@ -50,9 +50,9 @@
   $: watchQuery(query);
 </script>
 
-<div class="bg-base-subtle h-110 flex items-start gap-3 py-2 justify-center overflow-x-auto">
+<div class="inline-block text-center gap-3 py-2 bg-base-subtle overflow-x-auto whitespace-nowrap">
   {#each $library.items as movie (movie.id)}
-    <div class="flex flex-col gap-1">
+    <div class="flex-inline flex-col gap-1 mx-1 text-left whitespace-normal">
       <div class="flex">
         <button
           class="ml-auto btn btn-danger min-h-auto h-auto py-1"
