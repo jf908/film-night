@@ -2,6 +2,6 @@
   <section>Film Night</section>
   <section class="flex flex-col gap-2 text-sm">
     <a href="/about" class="link">About</a>
-    <a href="https://github.com/jf908" class="link">GitHub</a>
+    <a href="https://github.com/jf908/film-night" class="link">GitHub</a>
   </section>
 </footer>
