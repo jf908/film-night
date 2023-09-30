@@ -29,7 +29,7 @@
 
 <section class="relative flex items-end justify-center bg-base-subtle min-h-80">
   <div class="max-w-6xl px-2 w-full py-2 flex gap-8 items-end">
-    <div class="mb--16">
+    <div class="sm:mb--16">
       <Poster poster_path={movie.poster_path} />
     </div>
     <div class="flex-1">
@@ -42,9 +42,9 @@
 </section>
 
 <section class="max-w-6xl px-2 w-full mx-auto">
-  <section class="ml-220px flex">
+  <section class="sm:ml-220px flex flex-wrap">
     {#if movie.id}
-      <div class="flex items-center gap-2 ml-8">
+      <div class="flex items-center gap-2 sm:ml-8">
         <Intention id={movie.id} value={movie.expand?.user_media?.intent} />
         <Watched id={movie.id} value={movie.expand?.user_media?.watches} />
       </div>
@@ -77,8 +77,8 @@
       </TooltipGroup>
     </div>
   </section>
-  <div class="mt-4 text-sm flex items-start gap-8">
-    <dl class="flex flex-col gap-2 bg-base-muted text-fg-muted rounded-lg p-4 w-220px">
+  <div class="mt-4 text-sm flex flex-col sm:flex-row items-start gap-8">
+    <dl class="flex flex-col gap-2 bg-base-muted text-fg-muted rounded-lg p-4 w-full sm:w-220px">
       <div>
         <dt class="font-bold">Status</dt>
         <dd>{movie.status}</dd>
@@ -132,7 +132,7 @@
         </div>
       {/if}
     </dl>
-    <div class="flex-1 flex flex-col gap-8">
+    <div class="flex-1 flex flex-col gap-8 w-full px-2 sm:px-0">
       {#if movie.tagline}
         <blockquote
           class="border-l-4 border-l-border dark:border-l-base-subtle pl-2 py-1 text-fg-muted text-xl font-500 italic"

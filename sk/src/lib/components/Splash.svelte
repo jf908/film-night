@@ -1,5 +1,5 @@
-<section class="flex gap-6 max-w-2xl p-10 mx-auto bg-blue-700 rounded-xl text-white">
-  <div class="relative inline-block">
+<section class="flex flex-wrap gap-6 max-w-2xl p-10 mx-auto bg-blue-700 rounded-xl text-white">
+  <div class="relative">
     <img class="w-42 h-42" src="/empty_logo.svg" alt="Film Night" />
     <div class="moon moon-1 absolute left-50% top-32%">
       <div class="disc" />
@@ -14,10 +14,10 @@
       <div class="disc" />
     </div>
   </div>
-  <div class="flex flex-col gap-2">
+  <div class="flex-1 flex flex-col gap-2">
     <h2 class="font-bold text-3xl">Film Night</h2>
     <p>Maybe one day we will be able to decide what to watch.</p>
-    <div class="mt-auto flex justify-center">
+    <div class="mt-auto flex gap-1 justify-center">
       <a class="btn" href="/login">Login</a>
       <a class="btn btn-primary" href="/register">Sign up</a>
     </div>
