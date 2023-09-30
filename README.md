@@ -2,6 +2,8 @@
 
 A website made to help a group of people decide what movie to watch for movie night.
 
+![Screenshot](https://user-images.githubusercontent.com/2487520/271775029-f876d1bf-1c4f-4398-a864-387d04f8bc4d.png)
+
 > Uses the TMDB API
 
 ## Setup for production
