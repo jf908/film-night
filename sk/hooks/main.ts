@@ -103,3 +103,21 @@ routerAdd('POST', '/api/movie/resolve/:id', (c) => {
 
   return c.json(200, record.id);
 });
+
+/**
+ * Only allow 1 suggestion of each media
+ */
+onRecordBeforeCreateRequest((e) => {
+  const mediaId = e.record?.get('media');
+  const dao = $app.dao()!;
+
+  try {
+    dao.findFirstRecordByFilter('suggestion', 'active = true && media = {:mediaId}', {
+      mediaId,
+    });
+  } catch {
+    return;
+  }
+
+  throw new BadRequestError('Suggestion already exists');
+}, 'suggestion');
