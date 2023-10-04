@@ -1,5 +1,6 @@
 <script lang="ts">
   import Avatar from '$lib/components/Avatar.svelte';
+  import MovieFiltering from '$lib/components/MovieFiltering.svelte';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
   import Pagination from '$lib/components/Pagination.svelte';
   import Tabs from '$lib/components/Tabs.svelte';
@@ -18,7 +19,7 @@
     },
     { label: 'Want', value: 'want', icon: 'i-ph-thumbs-up', selectedClass: 'btn-success' },
     { label: "Don't want", value: 'dont', icon: 'i-ph-thumbs-down', selectedClass: 'btn-danger' },
-  ] as const;
+  ];
   let tab: (typeof tabs)[number]['value'] = 'watched';
 
   function createFilter(value: typeof tab, query: string) {
@@ -58,12 +59,7 @@
   </div>
 </section>
 
-<div
-  class="w-full max-w-3xl flex flex-wrap justify-around md:justify-between items-center gap-2 mt-8 px-2 mb-8 mx-auto"
->
-  <Tabs options={tabs} bind:value={tab} />
-  <input class="input w-full max-w-16rem" type="text" placeholder="Search..." bind:value={query} />
-</div>
+<MovieFiltering {query} {tabs} bind:tab />
 <div class="p-8">
   <MovieGrid
     movies={$library.items.map((m) => m.expand.media.metadata)}

@@ -1,8 +1,8 @@
-<script lang="ts">
+<script lang="ts" generics="T">
   import { Tab, TabGroup, TabList } from '@rgossiaux/svelte-headlessui';
 
-  export let value: string | undefined = undefined;
-  export let options: { label: string; value: string; icon?: string; selectedClass?: string }[];
+  export let value: T | undefined = undefined;
+  export let options: { label: string; value: T; icon?: string; selectedClass?: string }[];
 </script>
 
 <TabGroup on:change={(e) => (value = options[e.detail].value)}>
