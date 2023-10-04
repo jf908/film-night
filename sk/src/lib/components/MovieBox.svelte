@@ -3,8 +3,8 @@
   import { format, parseISO } from 'date-fns';
   import type { MovieResponse } from '../../../hooks/movieDbTypes';
   import Poster from './Poster.svelte';
-  import Tooltip from './Tooltip.svelte';
-  import Badge from './Badge.svelte';
+  import Tooltip from './common/Tooltip.svelte';
+  import Badge from './common/Badge.svelte';
   import IntentStatus from './IntentStatus.svelte';
   import MovieDots from './MovieDots.svelte';
 

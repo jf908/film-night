@@ -1,9 +1,9 @@
 <script lang="ts">
   import Intention from '$lib/components/Intention.svelte';
   import Poster from '$lib/components/Poster.svelte';
-  import Title from '$lib/components/Title.svelte';
-  import Tooltip from '$lib/components/Tooltip.svelte';
-  import TooltipGroup from '$lib/components/TooltipGroup.svelte';
+  import Title from '$lib/components/page/Title.svelte';
+  import Tooltip from '$lib/components/common/Tooltip.svelte';
+  import TooltipGroup from '$lib/components/common/TooltipGroup.svelte';
   import Watched from '$lib/components/Watched.svelte';
   import { coalesceCrew } from '$lib/tmdb/tmdb-util.js';
   import { formatDuration } from '$lib/util.js';

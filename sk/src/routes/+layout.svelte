@@ -13,7 +13,7 @@
 
 <style>
   :global(body) {
-    --apply-at: font-sans bg-base text-fg flex flex-col;
+    --at-apply: font-sans bg-base text-fg flex flex-col;
     min-height: 100vh;
   }
 </style>

@@ -1,5 +1,5 @@
 <script>
-  import Title from '$lib/components/Title.svelte';
+  import Title from '$lib/components/page/Title.svelte';
   import Register from '$lib/components/form/Register.svelte';
 </script>
 

@@ -15,6 +15,6 @@
 
 <style>
   .menu :global(.menu-items > * > * > *) {
-    --apply-at: flex rounded-lg px-4 py-2 text-sm hover\:bg-base-subtle cursor-pointer;
+    --at-apply: flex rounded-lg px-4 py-2 text-sm hover\:bg-base-subtle cursor-pointer;
   }
 </style>

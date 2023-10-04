@@ -2,7 +2,7 @@
   import { pb } from '$lib/pocketbase';
   import type { UserMediaResponse } from '$lib/pocketbase/pocketbase-types';
   import Intention from './Intention.svelte';
-  import Popover from './Popover.svelte';
+  import Popover from './common/Popover.svelte';
   import Watched from './Watched.svelte';
 
   export let id: number;

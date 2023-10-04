@@ -1,5 +1,5 @@
 <script lang="ts" generics="T">
-  import Tabs from './Tabs.svelte';
+  import Tabs from './common/Tabs.svelte';
 
   export let tabs: { label: string; value: T; icon: string; selectedClass: string }[];
   export let tab: T;

@@ -61,9 +61,9 @@
 
 <style>
   .want-active {
-    --apply-at: bg-green-600 text-white hover\:bg-green-500;
+    --at-apply: bg-green-600 text-white hover\:bg-green-500;
   }
   .dont-active {
-    --apply-at: bg-red-600 text-white hover\:bg-red-500;
+    --at-apply: bg-red-600 text-white hover\:bg-red-500;
   }
 </style>

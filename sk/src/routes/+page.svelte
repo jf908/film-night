@@ -2,7 +2,7 @@
   import Splash from '$lib/components/Splash.svelte';
   import { authModel, pb } from '$lib/pocketbase';
   import type { MovieResultsResponse } from '../../hooks/movieDbTypes';
-  import Title from '$lib/components/Title.svelte';
+  import Title from '$lib/components/page/Title.svelte';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
   import { throttle } from '$lib/util';
 
