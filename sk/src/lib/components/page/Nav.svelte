@@ -2,8 +2,8 @@
   import { authModel } from '$lib/pocketbase';
   import { theme } from '$lib/store/dark';
   import { MenuItem } from '@rgossiaux/svelte-headlessui';
-  import Avatar from './Avatar.svelte';
-  import Menu from './Menu.svelte';
+  import Avatar from '../common/Avatar.svelte';
+  import Menu from '../common/Menu.svelte';
 </script>
 
 <nav class="flex gap-1 px-2 items-center min-h-60px bg-base-muted">

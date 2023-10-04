@@ -1,8 +1,8 @@
 <script lang="ts">
   import { pb } from '$lib/pocketbase';
   import { resolveMovie } from '../api';
-  import Tooltip from './Tooltip.svelte';
-  import TooltipGroup from './TooltipGroup.svelte';
+  import Tooltip from './common/Tooltip.svelte';
+  import TooltipGroup from './common/TooltipGroup.svelte';
 
   export let id: number;
   export let value: string | null = null;
@@ -61,9 +61,9 @@
 
 <style>
   .want-active {
-    @apply bg-green-600 text-white hover\:bg-green-500;
+    --apply-at: bg-green-600 text-white hover\:bg-green-500;
   }
   .dont-active {
-    @apply bg-red-600 text-white hover\:bg-red-500;
+    --apply-at: bg-red-600 text-white hover\:bg-red-500;
   }
 </style>
