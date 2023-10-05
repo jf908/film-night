@@ -11,12 +11,13 @@
   export let movie: MovieResponse;
   export let intent: string | null = null;
   export let size: 'sm' | 'md' = 'md';
+  export let href: string | undefined = undefined;
 </script>
 
 <Tooltip options={{ placement: 'right' }} class="group relative">
   <a
     class="relative flex flex-col gap-1 text-fg-muted hover:text-link-accent"
-    href="/movie/{movie.id}"
+    href={href ?? `/movie/${movie.id}`}
     data-sveltekit-preload-data="tap"
   >
     {#if intent}

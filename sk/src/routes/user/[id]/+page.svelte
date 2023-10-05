@@ -15,7 +15,7 @@
     },
     { label: 'Want', value: 'want', icon: 'i-ph-thumbs-up', selectedClass: 'btn-success' },
     { label: "Don't want", value: 'dont', icon: 'i-ph-thumbs-down', selectedClass: 'btn-danger' },
-  ];
+  ] as const;
   let tab: (typeof tabs)[number]['value'] = 'watched';
 
   function createFilter(value: typeof tab, query: string) {
@@ -50,5 +50,5 @@
 
 <MovieFiltering {tabs} bind:query bind:tab />
 <div class="p-8">
-  <UserMediaGrid {filter} />
+  <UserMediaGrid userId={data.user.id} category={tab} {query} />
 </div>

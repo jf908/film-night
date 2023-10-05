@@ -1,7 +1,9 @@
 <script lang="ts">
   import { resolveMovie } from '$lib/api';
   import MovieBox from '$lib/components/MovieBox.svelte';
+  import MovieFiltering from '$lib/components/MovieFiltering.svelte';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
+  import UserMediaGrid from '$lib/components/UserMediaGrid.svelte';
   import { authModel, pb, watch } from '$lib/pocketbase';
   import type { MediaResponse, SuggestionResponse } from '$lib/pocketbase/pocketbase-types';
   import { throttle } from '$lib/util';
@@ -35,6 +37,24 @@
     });
   }
 
+  const tabs = [
+    {
+      label: 'All',
+      value: 'all',
+      icon: 'i-ph-squares-four',
+      selectedClass: 'btn-primary',
+    },
+    {
+      label: 'Watched',
+      value: 'watched',
+      icon: 'i-ph-clock-clockwise',
+      selectedClass: 'btn-primary',
+    },
+    { label: 'Want', value: 'want', icon: 'i-ph-thumbs-up', selectedClass: 'btn-success' },
+    { label: "Don't want", value: 'dont', icon: 'i-ph-thumbs-down', selectedClass: 'btn-danger' },
+  ] as const;
+  let tab: (typeof tabs)[number]['value'] = 'want';
+
   let query = '';
   let results: MovieResultsResponse | null = null;
 
@@ -67,11 +87,21 @@
 </div>
 <h2 class="text-center my-2 font-bold text-xl">Film Nights of the Round Table</h2>
 
-<main class="p-5 mx-auto flex flex-col gap-8 w-full">
-  <input type="text" class="input max-w-lg mx-auto" placeholder="Search..." bind:value={query} />
-  <MovieGrid movies={results?.results ?? []}>
-    <button class="btn btn-primary" slot="hover" let:id on:click={() => addToTable(id)}
-      ><span class="i-ph-plus-bold" /> Add to table</button
-    >
-  </MovieGrid>
+<main>
+  <MovieFiltering {tabs} bind:query bind:tab />
+  <div class="p-8">
+    {#if tab === 'all'}
+      <MovieGrid movies={results?.results ?? []}>
+        <button class="btn btn-primary" slot="hover" let:id on:click={() => addToTable(id)}
+          ><span class="i-ph-plus-bold" /> Add to table</button
+        >
+      </MovieGrid>
+    {:else if $authModel}
+      <UserMediaGrid userId={$authModel.id} category={tab} {query}>
+        <button class="btn btn-primary" slot="hover" let:id on:click={() => addToTable(id)}
+          ><span class="i-ph-plus-bold" /> Add to table</button
+        >
+      </UserMediaGrid>
+    {/if}
+  </div>
 </main>
