@@ -1,6 +1,10 @@
 <script lang="ts">
   import { watch } from '$lib/pocketbase';
-  import type { MediaResponse, UserMediaResponse } from '$lib/pocketbase/pocketbase-types';
+  import {
+    UserMediaIntentOptions,
+    type MediaResponse,
+    type UserMediaResponse,
+  } from '$lib/pocketbase/pocketbase-types';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
   import Pagination from '$lib/components/common/Pagination.svelte';
 
@@ -25,10 +29,23 @@
 
   $: filter = createFilter(category, query);
 
-  const library = watch<UserMediaResponse<{ media: MediaResponse }>>('user_media', {
-    filter,
-    expand: 'media',
-  });
+  const library = watch<UserMediaResponse<{ media: MediaResponse }>>(
+    'user_media',
+    {
+      filter,
+      expand: 'media',
+    },
+    {
+      updateFilter(record) {
+        return (
+          record.user === userId &&
+          (!(category === 'watched') || record.watches >= 1) &&
+          (!(category === 'want') || record.intent === UserMediaIntentOptions.want) &&
+          (!(category === 'dont') || record.intent === UserMediaIntentOptions.dont) &&
+        );
+      },
+    }
+  );
 
   $: library.setFilter(filter);
 </script>
