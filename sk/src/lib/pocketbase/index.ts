@@ -102,7 +102,6 @@ export function watch<T extends { id?: string }>(
                 record = await expand(queryParams.expand, record);
 
                 if (updateFilter && !updateFilter(record)) {
-                  console.log('Filter out');
                   return result.items.filter((item) => item.id !== record.id);
                 }
 
