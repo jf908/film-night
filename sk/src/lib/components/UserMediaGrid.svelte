@@ -41,7 +41,7 @@
           record.user === userId &&
           (!(category === 'watched') || record.watches >= 1) &&
           (!(category === 'want') || record.intent === UserMediaIntentOptions.want) &&
-          (!(category === 'dont') || record.intent === UserMediaIntentOptions.dont) &&
+          (!(category === 'dont') || record.intent === UserMediaIntentOptions.dont)
         );
       },
     }
