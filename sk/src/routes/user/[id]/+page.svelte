@@ -37,7 +37,7 @@
   $: filter = createFilter(tab, query);
 </script>
 
-<Title title={data.user.name} />
+<Title title="{data.user.name}'s profile" />
 
 <section class="relative flex items-end justify-center bg-base-subtle min-h-40">
   <div class="max-w-3xl w-full py-2 flex items-end gap-3 px-2">

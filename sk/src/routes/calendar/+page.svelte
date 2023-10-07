@@ -1,6 +1,7 @@
 <script lang="ts">
   import Calendar from '$lib/components/Calendar.svelte';
   import MonthSelector from '$lib/components/date/MonthSelector.svelte';
+  import Title from '$lib/components/page/Title.svelte';
   import type { FullEvent } from '$lib/event';
   import { pb } from '$lib/pocketbase';
   import { endOfMonth, formatISO, startOfMonth } from 'date-fns';
@@ -31,3 +32,5 @@
     <Calendar {startDate} events={records} />
   </div>
 </div>
+
+<Title title="Calendar" />

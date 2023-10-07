@@ -12,6 +12,7 @@
   export let intent: string | null = null;
   export let size: 'sm' | 'md' = 'md';
   export let href: string | undefined = undefined;
+  export let showTitle = true;
 </script>
 
 <Tooltip options={{ placement: 'right' }} class="group relative">
@@ -24,9 +25,11 @@
       <IntentStatus value={intent} class="absolute z-1 left--2 top--2" />
     {/if}
     <Poster poster_path={movie.poster_path} {size} />
-    <div class="text-sm font-500" class:w-220px={size === 'md'} class:w-110px={size === 'sm'}>
-      {movie.title}
-    </div>
+    {#if showTitle}
+      <div class="text-sm font-500" class:w-220px={size === 'md'} class:w-110px={size === 'sm'}>
+        {movie.title}
+      </div>
+    {/if}
   </a>
   {#if movie.id}
     <div class="absolute right-1 top-1 invisible group-hover:visible flex flex-col items-end gap-2">

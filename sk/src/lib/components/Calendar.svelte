@@ -67,7 +67,7 @@
         <div class="flex justify-center">
           {#each day.events as event}
             {#if event.expand?.watching.metadata}
-              <MovieBox movie={event.expand.watching.metadata} size="sm">
+              <MovieBox movie={event.expand.watching.metadata} href="/event/{event.id}" size="sm">
                 <div slot="tooltip" class="mt-4 text-sm">
                   {#if event.expand.attended}
                     Attended by: {event.expand.attended.map((u) => u.name).join(', ')}
