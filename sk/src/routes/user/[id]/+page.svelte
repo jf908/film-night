@@ -3,6 +3,7 @@
   import MovieFiltering from '$lib/components/MovieFiltering.svelte';
   import Title from '$lib/components/page/Title.svelte';
   import UserMediaGrid from '$lib/components/UserMediaGrid.svelte';
+  import { pb } from '$lib/pocketbase/index.js';
 
   export let data;
 
@@ -42,7 +43,10 @@
 <section class="relative flex items-end justify-center bg-base-subtle min-h-40">
   <div class="max-w-3xl w-full py-2 flex items-end gap-3 px-2">
     <div class="mb--6">
-      <Avatar class="text-2.5rem" />
+      <Avatar
+        class="text-2.5rem"
+        image={data.user.avatar && pb.files.getUrl(data.user, data.user.avatar)}
+      />
     </div>
     {data.user.name}
   </div>

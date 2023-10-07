@@ -3,11 +3,12 @@
 </script>
 
 <div
-  class="text-1.125rem w-2em h-2em flex justify-center items-center dark:bg-gray-700 bg-gray-400 rounded {$$props.class ??
+  class="text-1.125rem w-2em h-2em flex justify-center items-center dark:bg-gray-700 bg-gray-400 rounded overflow-hidden {$$props.class ??
     ''}"
 >
   {#if image}
     <img class="w-full h-full" src={image} alt="" />
+  {:else}
+    <span class="i-ph-user text-white" />
   {/if}
-  <span class="i-ph-user text-white" />
 </div>

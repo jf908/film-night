@@ -5,9 +5,10 @@ import { base } from '$app/paths';
 
 export const pb = new PocketBase(browser ? window.location.origin + '/' + base : undefined);
 
-export const authModel = readable<PBRecord | Admin | null>(null, function (set) {
+// Assumes no login as admin
+export const authModel = readable<PBRecord | null>(null, function (set) {
   pb.authStore.onChange((token, model) => {
-    set(model);
+    set(model as PBRecord | null);
   }, true);
 });
 

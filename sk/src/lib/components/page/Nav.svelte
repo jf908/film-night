@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { authModel } from '$lib/pocketbase';
+  import { authModel, pb } from '$lib/pocketbase';
   import { theme } from '$lib/store/dark';
   import { MenuItem } from '@rgossiaux/svelte-headlessui';
   import Avatar from '../common/Avatar.svelte';
@@ -37,10 +37,17 @@
   >
   {#if $authModel}
     <Menu>
-      <Avatar slot="button" />
+      <Avatar
+        slot="button"
+        image={$authModel.avatar &&
+          pb.files.getUrl($authModel, $authModel.avatar, { thumb: '100x100' })}
+      />
       <div class="p-2">
         <MenuItem>
           <a href="/user/{$authModel.id}">Profile</a>
+        </MenuItem>
+        <MenuItem>
+          <a href="/settings">Settings</a>
         </MenuItem>
         <MenuItem>
           <a href="/logout" data-sveltekit-preload-data="false">Logout</a>

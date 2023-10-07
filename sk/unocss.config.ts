@@ -43,6 +43,7 @@ export default defineConfig({
     'btn-primary': 'bg-blue-600 text-white hover:bg-blue-500',
     'btn-success': 'bg-green-600 text-white hover:bg-green-500',
     'btn-danger': 'bg-red-600 text-white hover:bg-red-500',
+    'btn-disabled': 'opacity-50 pointer-events-none',
   },
   extractors: [extractorSvelte()],
   presets: [

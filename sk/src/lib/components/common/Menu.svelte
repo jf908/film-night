@@ -4,7 +4,7 @@
 
 <div class="menu inline-block">
   <Menu class="relative">
-    <MenuButton><slot name="button" /></MenuButton>
+    <MenuButton class="block"><slot name="button" /></MenuButton>
     <MenuItems
       class="menu-items absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-700 rounded-md border border-border-muted bg-base dark:bg-base-muted shadow-lg"
     >
