@@ -31,12 +31,14 @@
       <label for="search" class="flex items-center font-medium text-fg-muted mb-2"
         ><span class="i-ph-magnifying-glass-bold text-lg mr-1" /> Search</label
       >
+      <!-- svelte-ignore a11y-autofocus -->
       <input
         id="search"
         type="text"
         class="input"
         placeholder="Search for a movie"
         bind:value={query}
+        autofocus
       />
     </div>
     <MovieGrid movies={results?.results ?? []} />
