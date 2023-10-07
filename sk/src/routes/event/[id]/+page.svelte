@@ -37,12 +37,6 @@
                 <div>{attendee.name}</div>
               </div>
             </a>
-            <a href="/user/{attendee.id}">
-              <div class="flex gap-2 items-center">
-                <Avatar src={attendee.avatar} />
-                <div>{attendee.name}</div>
-              </div>
-            </a>
           {/each}
         </div>
       {/if}

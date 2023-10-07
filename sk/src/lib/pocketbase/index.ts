@@ -96,7 +96,6 @@ export function watch<T extends { id?: string }>(
       (overrideSubscriptionCollection ? pb.collection(overrideSubscriptionCollection) : collection)
         .subscribe<T>('*', ({ action, record }) => {
           (async function (action: string) {
-            console.log('Action', action, record);
             // see https://github.com/pocketbase/pocketbase/discussions/505
             switch (action) {
               case 'update':
