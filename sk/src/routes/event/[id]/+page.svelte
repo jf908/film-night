@@ -2,6 +2,7 @@
   import MovieBox from '$lib/components/MovieBox.svelte';
   import Avatar from '$lib/components/common/Avatar.svelte';
   import Title from '$lib/components/page/Title.svelte';
+  import { pb } from '$lib/pocketbase';
 
   export let data;
 </script>
@@ -14,7 +15,7 @@
       </div>
     {/if}
     <div class="mt-4">
-      <h2 class="text-2xl font-bold text-right opacity-80">
+      <h2 class="text-2xl font-bold opacity-80">
         {new Date(data.event.datetime).toLocaleDateString(undefined, {
           dateStyle: 'full',
         })}
@@ -23,8 +24,8 @@
         {data.event.expand?.watching.metadata?.title}
       </h3>
       {#if data.event.description}
-        <p class="max-w-sm text-right mt-3">
-          {data.event.description}
+        <p class="max-w-sm mt-3">
+          {@html data.event.description}
         </p>
       {/if}
       {#if data.event.expand?.attended}
@@ -33,7 +34,11 @@
           {#each data.event.expand.attended as attendee}
             <a href="/user/{attendee.id}" class="hover:underline">
               <div class="flex gap-2 items-center">
-                <Avatar src={attendee.avatar} />
+                <Avatar
+                  src={attendee.avatar}
+                  image={attendee.avatar &&
+                    pb.files.getUrl(attendee, attendee.avatar, { thumb: '100x100' })}
+                />
                 <div>{attendee.name}</div>
               </div>
             </a>
