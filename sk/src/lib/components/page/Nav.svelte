@@ -25,6 +25,9 @@
       class="text-sm hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-2 flex items-center gap-1"
       ><span class="i-ph-chart-pie text-xl" /> Round Table</a
     >
+  {/if}
+  <div class="ml-auto" />
+  {#if $authModel}
     <a
       href="/"
       class="ml-auto hover:bg-gray-200 dark:hover:bg-gray-700 rounded p-2 flex items-center gap-1"
