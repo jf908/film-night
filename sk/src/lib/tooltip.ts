@@ -8,7 +8,7 @@ export interface TooltipOptions {
 
 export function createTooltip(options?: TooltipOptions) {
   const [floatingRef, floatingContent] = createFloatingActions({
-    strategy: 'absolute',
+    strategy: 'fixed',
     placement: options?.placement ?? 'top',
     middleware: [offset(6), flip(), shift()],
   });
