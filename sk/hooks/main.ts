@@ -105,19 +105,25 @@ routerAdd('POST', '/api/movie/resolve/:id', (c) => {
 });
 
 /**
- * Only allow 1 suggestion of each media
+ * Only allow 2 suggestions per person
  */
 onRecordBeforeCreateRequest((e) => {
-  const mediaId = e.record?.get('media');
+  const auth = e.httpContext.get('authRecord') as { id: string } | undefined;
+  if (!auth) return;
+
   const dao = $app.dao()!;
 
-  try {
-    dao.findFirstRecordByFilter('suggestion', 'active = true && media = {:mediaId}', {
-      mediaId,
-    });
-  } catch {
-    return;
-  }
+  const result = new DynamicModel({
+    count: 0,
+  }) as { count: number };
 
-  throw new BadRequestError('Suggestion already exists');
+  dao
+    .db()
+    .newQuery('SELECT COUNT(*) as count FROM suggestion WHERE active = true AND user = {:userId}')
+    ?.bind({ userId: auth.id })
+    ?.one(result);
+
+  if (result.count >= 2) {
+    throw new BadRequestError("You've made too many suggestions");
+  }
 }, 'suggestion');
