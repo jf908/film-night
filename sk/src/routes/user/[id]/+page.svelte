@@ -48,7 +48,10 @@
   </div>
 </section>
 
-<MovieFiltering {tabs} bind:query bind:tab />
+<div class="w-full max-w-3xl mx-auto px-2 mt-8 mb-2 text-fg-muted">
+  <h3 class="font-medium"><span class="i-ph-bookmarks-bold text-xl" /> Library</h3>
+</div>
+<MovieFiltering class="mb-8" {tabs} bind:query bind:tab />
 <div class="p-8">
   <UserMediaGrid userId={data.user.id} category={tab} {query} />
 </div>

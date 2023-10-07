@@ -27,7 +27,18 @@
   {#if $authModel === null}
     <Splash />
   {:else}
-    <input type="text" class="input max-w-lg mx-auto" placeholder="Search..." bind:value={query} />
+    <div class="form-control max-w-lg w-full mx-auto">
+      <label for="search" class="flex items-center font-medium text-fg-muted mb-2"
+        ><span class="i-ph-magnifying-glass-bold text-lg mr-1" /> Search</label
+      >
+      <input
+        id="search"
+        type="text"
+        class="input"
+        placeholder="Search for a movie"
+        bind:value={query}
+      />
+    </div>
     <MovieGrid movies={results?.results ?? []} />
   {/if}
 </main>
