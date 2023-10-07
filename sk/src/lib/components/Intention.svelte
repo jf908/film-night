@@ -35,7 +35,7 @@
           class:want-active={value === 'want'}
           on:click={() => setIntent('want')}><span class="text-xl i-ph-thumbs-up-fill" /></button
         >
-        <div slot="tooltip" class="tooltip">Want to watch</div>
+        <div slot="tooltip" class="tooltip">I want to watch this</div>
       </Tooltip>
     </li>
     <li>
@@ -53,7 +53,7 @@
           class:dont-active={value === 'dont'}
           on:click={() => setIntent('dont')}><span class="text-xl i-ph-thumbs-down-fill" /></button
         >
-        <div slot="tooltip" class="tooltip">Don't want to watch</div>
+        <div slot="tooltip" class="tooltip">I don't want to watch this</div>
       </Tooltip>
     </li>
   </menu>

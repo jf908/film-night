@@ -58,7 +58,7 @@
 </MovieGrid>
 {#if $library.items.length === 0}
   <p class="text-center">No results.</p>
-  {#if (category === 'want' || category === 'dont') && $authModel?.id === userId}
+  {#if (category === 'want' || category === 'dont') && $authModel?.id === userId && query === ''}
     <div class="flex justify-center">
       <div class="rounded-md bg-base-muted p-5 mt-3">
         Add movies to your <b>{category === 'dont' ? "don't " : ''}want to watch</b> list by

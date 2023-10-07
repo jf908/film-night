@@ -26,7 +26,9 @@
 
 <div>
   {#if value === null || value === 0}
-    <button class="btn btn-primary min-h-12" on:click={() => setWatched(1)}>Mark as watched</button>
+    <button class="btn btn-primary min-h-12" on:click={() => setWatched(1)}
+      >I have watched this</button
+    >
   {:else}
     <div class="bg-base-muted flex items-center rounded">
       <div class="px-4 text-sm font-500">

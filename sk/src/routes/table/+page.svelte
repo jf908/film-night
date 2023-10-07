@@ -44,14 +44,7 @@
       icon: 'i-ph-squares-four',
       selectedClass: 'btn-primary',
     },
-    {
-      label: 'Watched',
-      value: 'watched',
-      icon: 'i-ph-clock-clockwise',
-      selectedClass: 'btn-primary',
-    },
     { label: 'Want', value: 'want', icon: 'i-ph-thumbs-up', selectedClass: 'btn-success' },
-    { label: "Don't want", value: 'dont', icon: 'i-ph-thumbs-down', selectedClass: 'btn-danger' },
   ] as const;
   let tab: (typeof tabs)[number]['value'] = 'want';
 
@@ -70,9 +63,12 @@
   $: watchQuery(query);
 </script>
 
-<div class="inline-block text-center gap-3 py-2 bg-base-subtle overflow-x-auto whitespace-nowrap">
+<div
+  class="inline-block text-center gap-3 py-2 px-2 bg-base-subtle overflow-x-auto whitespace-nowrap"
+>
+  <h3 class="font-bold text-xl mb-2">Suggestions</h3>
   {#each $library.items as movie (movie.id)}
-    <div class="flex-inline flex-col gap-1 mx-1 text-left whitespace-normal">
+    <div class="flex-inline flex-col gap-1 mx-3 text-left whitespace-normal">
       <div class="flex">
         <button
           class="ml-auto btn btn-danger min-h-auto h-auto py-1"
@@ -85,7 +81,7 @@
     </div>
   {/each}
 </div>
-<h2 class="text-center my-2 font-bold text-xl">Film Nights of the Round Table</h2>
+<h2 class="text-center my-2 font-bold text-xl">Library</h2>
 
 <main>
   <MovieFiltering {tabs} bind:query bind:tab />
@@ -93,13 +89,13 @@
     {#if tab === 'all'}
       <MovieGrid movies={results?.results ?? []}>
         <button class="btn btn-primary" slot="hover" let:id on:click={() => addToTable(id)}
-          ><span class="i-ph-plus-bold" /> Add to table</button
+          ><span class="i-ph-plus-bold" /> Suggest</button
         >
       </MovieGrid>
     {:else if $authModel}
       <UserMediaGrid userId={$authModel.id} category={tab} {query}>
         <button class="btn btn-primary" slot="hover" let:id on:click={() => addToTable(id)}
-          ><span class="i-ph-plus-bold" /> Add to table</button
+          ><span class="i-ph-plus-bold" /> Suggest</button
         >
       </UserMediaGrid>
     {/if}
