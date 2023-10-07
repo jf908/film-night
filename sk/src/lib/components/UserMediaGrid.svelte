@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { watch } from '$lib/pocketbase';
+  import { authModel, watch } from '$lib/pocketbase';
   import {
     UserMediaIntentOptions,
     type MediaResponse,
@@ -57,7 +57,22 @@
   <slot name="hover" slot="hover" let:id {id} />
 </MovieGrid>
 {#if $library.items.length === 0}
-  <p class="text-center">No content.</p>
+  <p class="text-center">No results.</p>
+  {#if (category === 'want' || category === 'dont') && $authModel?.id === userId}
+    <div class="flex justify-center">
+      <div class="rounded-md bg-base-muted p-5 mt-3">
+        Add movies to your <b>{category === 'dont' ? "don't " : ''}want to watch</b> list by
+        searching for them and using the
+        <span class="bg-base-subtle p-2 rounded">
+          <span
+            class:i-ph-thumbs-up={category === 'want'}
+            class:i-ph-thumbs-down={category === 'dont'}
+            class="text-2xl"
+          />
+        </span> button.
+      </div>
+    </div>
+  {/if}
 {/if}
 {#if $library.totalPages > 1}
   <div class="flex justify-center mt-4">
