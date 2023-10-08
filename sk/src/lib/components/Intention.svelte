@@ -31,7 +31,7 @@
     <li>
       <Tooltip>
         <button
-          class="btn p-3 bg-base-muted"
+          class="btn p-3 bg-base-muted transition-colors"
           class:want-active={value === 'want'}
           on:click={() => setIntent('want')}><span class="text-xl i-ph-thumbs-up-fill" /></button
         >
@@ -62,8 +62,22 @@
 <style>
   .want-active {
     --at-apply: bg-green-600 text-white hover\:bg-green-500;
+    animation: pulse 0.25s ease-out;
   }
   .dont-active {
     --at-apply: bg-red-600 text-white hover\:bg-red-500;
+    animation: pulse 0.25s ease-out;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 </style>

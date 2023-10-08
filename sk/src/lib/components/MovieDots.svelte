@@ -4,6 +4,7 @@
   import Intention from './Intention.svelte';
   import Popover from './common/Popover.svelte';
   import Watched from './Watched.svelte';
+  import { fade } from 'svelte/transition';
 
   export let id: number;
 
@@ -26,7 +27,7 @@
   on:open={loadData}
 >
   <span class="i-ph-dots-three-bold" />
-  <div slot="popover" class="flex flex-col gap-2 items-end">
+  <div slot="popover" class="flex flex-col gap-2 items-end" transition:fade={{ duration: 100 }}>
     <Intention {id} value={userMedia?.intent} />
     <Watched {id} value={userMedia?.watches} />
   </div>
