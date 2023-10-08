@@ -48,7 +48,7 @@
   });
 </script>
 
-<div class="md:grid grid-cols-7 gap-1px bg-border border-border border-1">
+<div class="flex flex-col md:grid grid-cols-7 gap-1px bg-border border-border border-1">
   {#each weekDays as day}
     <div class="mx--1 mt--1 text-center bg-base hidden md:block">
       {day}
