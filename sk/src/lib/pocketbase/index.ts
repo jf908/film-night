@@ -12,6 +12,15 @@ export const authModel = readable<PBRecord | null>(null, function (set) {
   }, true);
 });
 
+// Auto refresh incase it's expired
+if (pb.authStore.isValid) {
+  pb.collection('users')
+    .authRefresh()
+    .catch(() => {
+      pb.authStore.clear();
+    });
+}
+
 /*
  * Save (create/update) a record (a plain object). Automatically converts to
  * FormData if needed.
