@@ -41,14 +41,14 @@
 <Title title="{data.user.name}'s profile" />
 
 <section class="relative flex items-end justify-center bg-base-subtle min-h-40">
-  <div class="max-w-3xl w-full py-2 flex items-end gap-3 px-2">
+  <div class="max-w-3xl w-full py-2 flex items-end gap-4 px-2">
     <div class="mb--6">
       <Avatar
-        class="text-2.5rem"
+        class="text-4rem"
         image={data.user.avatar && pb.files.getUrl(data.user, data.user.avatar)}
       />
     </div>
-    {data.user.name}
+    <h2 class="font-bold text-2xl mb-1">{data.user.name}</h2>
   </div>
 </section>
 

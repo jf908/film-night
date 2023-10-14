@@ -7,7 +7,7 @@
     ''}"
 >
   {#if image}
-    <img class="w-full h-full" src={image} alt="" />
+    <img class="w-full h-full object-cover" src={image} alt="" />
   {:else}
     <span class="i-ph-user text-white" />
   {/if}
