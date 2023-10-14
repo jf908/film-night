@@ -100,7 +100,11 @@ export function watch<T extends { id?: string }>(
     // watch for changes (only if you're in the browser)
     if (browser) {
       async function expand(expand: any, record: any) {
-        return expand ? await collection.getOne(record.id, { expand }) : record;
+        const params: any = { expand };
+        if (queryParams.$cancelKey) {
+          params.$cancelKey = queryParams.$cancelKey;
+        }
+        return expand ? await collection.getOne(record.id, params) : record;
       }
       (overrideSubscriptionCollection ? pb.collection(overrideSubscriptionCollection) : collection)
         .subscribe<T>('*', ({ action, record }) => {
