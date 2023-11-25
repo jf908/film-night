@@ -1,7 +1,8 @@
 import PocketBase, { ListResult, Record as PBRecord, type Admin, Record } from 'pocketbase';
-import { readable, type Readable, type Subscriber } from 'svelte/store';
+import { get, readable, type Readable, type Subscriber } from 'svelte/store';
 import { browser } from '$app/environment';
 import { base } from '$app/paths';
+import { goto } from '$app/navigation';
 
 export const pb = new PocketBase(browser ? window.location.origin + '/' + base : undefined);
 
@@ -18,7 +19,11 @@ if (pb.authStore.isValid) {
     .authRefresh()
     .catch(() => {
       pb.authStore.clear();
+      goto('/');
     });
+} else if (get(authModel)) {
+  pb.authStore.clear();
+  goto('/');
 }
 
 /*
