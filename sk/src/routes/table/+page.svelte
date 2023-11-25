@@ -5,6 +5,7 @@
   import MovieFiltering from '$lib/components/MovieFiltering.svelte';
   import MovieGrid from '$lib/components/MovieGrid.svelte';
   import UserMediaGrid from '$lib/components/UserMediaGrid.svelte';
+  import Tooltip from '$lib/components/common/Tooltip.svelte';
   import { authModel, pb, watch } from '$lib/pocketbase';
   import type {
     MediaResponse,
@@ -27,6 +28,10 @@
       },
     }
   );
+
+  const maxSuggestions = 2;
+  $: mySuggestions = $suggestions.items.filter((s) => s.user === $authModel?.id).length;
+  $: canSuggest = mySuggestions < maxSuggestions;
 
   async function addToTable(id: number) {
     const media = await resolveMovie(id);
@@ -143,15 +148,29 @@
   <div class="p-8">
     {#if tab === 'all'}
       <MovieGrid movies={results?.results ?? []}>
-        <button class="btn btn-primary" slot="hover" let:id on:click={() => addToTable(id)}
-          ><span class="i-ph-plus-bold" /> Suggest</button
-        >
+        <div slot="hover" let:id>
+          <Tooltip>
+            <button class="btn btn-primary" on:click={() => addToTable(id)} disabled={!canSuggest}
+              ><span class="i-ph-plus-bold" /> Suggest</button
+            >
+            <div slot="tooltip" class="bg-black text-white rounded p-6 shadow-xl">
+              You have used {mySuggestions} of {maxSuggestions} suggestions.
+            </div>
+          </Tooltip>
+        </div>
       </MovieGrid>
     {:else if $authModel}
       <UserMediaGrid userId={$authModel.id} category={tab} {query}>
-        <button class="btn btn-primary" slot="hover" let:id on:click={() => addToTable(id)}
-          ><span class="i-ph-plus-bold" /> Suggest</button
-        >
+        <div slot="hover" let:id>
+          <Tooltip>
+            <button class="btn btn-primary" on:click={() => addToTable(id)} disabled={!canSuggest}
+              ><span class="i-ph-plus-bold" /> Suggest</button
+            >
+            <div slot="tooltip" class="bg-black text-white rounded p-2 text-sm shadow-xl">
+              You have used {mySuggestions} of {maxSuggestions} suggestions.
+            </div>
+          </Tooltip>
+        </div>
       </UserMediaGrid>
     {/if}
   </div>
