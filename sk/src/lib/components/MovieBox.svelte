@@ -11,22 +11,38 @@
   export let movie: MovieResponse;
   export let intent: string | null = null;
   export let size: 'sm' | 'md' = 'md';
+  export let responsive = false;
+  export let overlay = false;
   export let href: string | undefined = undefined;
   export let showTitle = true;
 </script>
 
-<Tooltip options={{ placement: 'right' }} class="group relative">
+<Tooltip options={{ placement: 'right' }} class="group relative {$$props.class ?? ''}">
   <a
-    class="relative flex flex-col gap-1 text-fg-muted hover:text-link-accent"
+    class="relative flex flex-col items-center gap-2 text-fg-muted hover:text-link-accent"
     href={href ?? `/movie/${movie.id}`}
     data-sveltekit-preload-data="tap"
   >
     {#if intent}
       <IntentStatus value={intent} class="absolute z-1 left--2 top--2" />
     {/if}
-    <Poster poster_path={movie.poster_path} {size} />
-    {#if showTitle}
-      <div class="text-sm font-500" class:w-220px={size === 'md'} class:w-110px={size === 'sm'}>
+    <Poster poster_path={movie.poster_path} {size} {responsive}>
+      {#if showTitle && overlay}
+        <div
+          class="text-sm font-500 leading-4 w-full p-1 rounded-b-lg absolute bottom-0 bg-gray-900/80 text-xs font-bold"
+          class:w-220px={size === 'md'}
+          class:w-110px={size === 'sm'}
+        >
+          {movie.title}
+        </div>
+      {/if}
+    </Poster>
+    {#if showTitle && !overlay}
+      <div
+        class="text-sm font-500 leading-4"
+        class:w-220px={size === 'md'}
+        class:w-110px={size === 'sm'}
+      >
         {movie.title}
       </div>
     {/if}

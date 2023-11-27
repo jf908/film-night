@@ -28,7 +28,7 @@
 
 <div class="flex flex-col gap-2 items-center p-2">
   <MonthSelector bind:value={startDate} />
-  <div>
+  <div class="w-full">
     <Calendar {startDate} events={records} />
   </div>
 </div>

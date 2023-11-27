@@ -6,6 +6,7 @@
     format,
     getDaysInMonth,
     isSameDay,
+    isToday,
     startOfMonth,
     startOfWeek,
   } from 'date-fns';
@@ -48,26 +49,43 @@
   });
 </script>
 
-<div class="flex flex-col md:grid grid-cols-7 gap-1px bg-border border-border border-1">
+<div
+  class="flex flex-col md:grid grid-cols-7 gap-1px bg-border border-border border-1 h-auto md:min-h-[calc(100vh-114px)]"
+  style="grid-template-rows: 1.2rem"
+>
   {#each weekDays as day}
-    <div class="mx--1 mt--1 text-center bg-base hidden md:block">
+    <div class="mx--1 mt--1 text-center bg-base hidden md:block text-sm">
       {day}
     </div>
   {/each}
   {#each gridElements as day}
     <div
-      class="p-4 md:p-2 md:flex flex-col bg-base overflow-hidden w-80vw md:w-auto"
+      class="p-4 md:p-0 md:flex flex-col bg-base overflow-hidden relative min-h-8rem"
       class:hidden={!day?.events.length}
       class:flex={!!day?.events.length}
     >
       {#if day}
-        <div class="text-right">
+        {@const today = isToday(day.date)}
+        <div
+          class="p-1 leading-4 text-right absolute top-1 right-1 text-sm"
+          class:bg-red-600={today}
+          class:rounded-full={today}
+          class:font-bold={today}
+          class:text-white={today}
+        >
           {day.date.getDate()}
         </div>
-        <div class="flex justify-center">
+        <div class="flex px-1 pb-1 pt-6 justify-center md:absolute w-full h-full">
           {#each day.events as event}
             {#if event.expand?.watching.metadata}
-              <MovieBox movie={event.expand.watching.metadata} href="/event/{event.id}" size="sm">
+              <MovieBox
+                movie={event.expand.watching.metadata}
+                href="/event/{event.id}"
+                size="sm"
+                responsive
+                overlay
+                class="flex justify-center"
+              >
                 <div slot="tooltip" class="mt-4 text-sm">
                   {#if event.expand.attended}
                     Attended by: {event.expand.attended.map((u) => u.name).join(', ')}
