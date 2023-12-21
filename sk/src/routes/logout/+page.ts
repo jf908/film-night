@@ -3,5 +3,5 @@ import { redirect } from '@sveltejs/kit';
 
 export async function load() {
   pb.authStore.clear();
-  throw redirect(302, '/');
+  redirect(302, '/');
 }

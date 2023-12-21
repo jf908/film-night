@@ -75,7 +75,7 @@
         >
           {day.date.getDate()}
         </div>
-        <div class="flex px-1 pb-1 pt-6 justify-center md:absolute w-full h-full">
+        <div class="flex px-1 pb-1 pt-6 justify-center md:absolute w-full h-full gap-2">
           {#each day.events as event}
             {#if event.expand?.watching.metadata}
               <MovieBox

@@ -1,4 +1,9 @@
-import PocketBase, { ListResult, Record as PBRecord, type Admin, Record } from 'pocketbase';
+import PocketBase, {
+  type ListResult,
+  type AuthModel,
+  type RecordModel,
+  type ListOptions,
+} from 'pocketbase';
 import { get, readable, type Readable, type Subscriber } from 'svelte/store';
 import { browser } from '$app/environment';
 import { base } from '$app/paths';
@@ -7,9 +12,9 @@ import { goto } from '$app/navigation';
 export const pb = new PocketBase(browser ? window.location.origin + '/' + base : undefined);
 
 // Assumes no login as admin
-export const authModel = readable<PBRecord | null>(null, function (set) {
+export const authModel = readable<AuthModel>(null, function (set) {
   pb.authStore.onChange((token, model) => {
-    set(model as PBRecord | null);
+    set(model as AuthModel);
   }, true);
 });
 
@@ -30,10 +35,10 @@ if (pb.authStore.isValid) {
  * Save (create/update) a record (a plain object). Automatically converts to
  * FormData if needed.
  */
-export async function save<T extends {}, R = Record>(
+export async function save<T extends {}, R = RecordModel>(
   collection: string,
   record: T,
-  create = false
+  create = false,
 ) {
   // convert obj to FormData in case one of the fields is instanceof FileList
   const data = object2formdata(record);
@@ -80,21 +85,19 @@ export interface PageStore<T = any> extends Readable<ListResult<T>> {
 
 export function watch<T extends { id?: string }>(
   idOrName: string,
-  queryParams = {} as any,
+  queryParams: ListOptions = {},
   {
-    additionalSubscriptions,
-    overrideSubscriptionCollection,
+    subscriptionFilter,
     updateFilter,
   }: {
-    additionalSubscriptions?: { collection: string; key: string }[];
+    subscriptionFilter?: string;
     updateFilter?: (record: T) => boolean;
-    overrideSubscriptionCollection?: string;
   } = {},
   page = 1,
-  perPage = 20
+  perPage = 20,
 ): PageStore<T> {
   const collection = pb.collection(idOrName);
-  let result = new ListResult(page, perPage, 0, 0, [] as T[]);
+  let result: ListResult<T> = { page, perPage, totalItems: 0, totalPages: 0, items: [] };
   let set: Subscriber<ListResult<T>>;
   const store = readable<ListResult<T>>(result, (_set) => {
     set = _set;
@@ -104,42 +107,43 @@ export function watch<T extends { id?: string }>(
     let stopped = false;
     // watch for changes (only if you're in the browser)
     if (browser) {
-      async function expand(expand: any, record: any) {
-        const params: any = { expand };
-        if (queryParams.$cancelKey) {
-          params.$cancelKey = queryParams.$cancelKey;
-        }
-        return expand ? await collection.getOne(record.id, params) : record;
-      }
-      (overrideSubscriptionCollection ? pb.collection(overrideSubscriptionCollection) : collection)
-        .subscribe<T>('*', ({ action, record }) => {
-          (async function (action: string) {
-            // see https://github.com/pocketbase/pocketbase/discussions/505
-            switch (action) {
-              case 'update':
-                record = await expand(queryParams.expand, record);
+      collection
+        .subscribe<T>(
+          '*',
+          ({ action, record }) => {
+            set(
+              (result = {
+                ...result,
+                items: (function (action: string) {
+                  switch (action) {
+                    case 'update':
+                      if (updateFilter && !updateFilter(record)) {
+                        return result.items.filter((item) => item.id !== record.id);
+                      }
 
-                if (updateFilter && !updateFilter(record)) {
-                  return result.items.filter((item) => item.id !== record.id);
-                }
-
-                return result.items.map((item) => (item.id === record.id ? record : item));
-              case 'create':
-                record = await expand(queryParams.expand, record);
-                const index = result.items.findIndex((r) => r.id === record.id);
-                // replace existing if found, otherwise append
-                if (index >= 0) {
-                  result.items[index] = record;
+                      return result.items.map((item) => (item.id === record.id ? record : item));
+                    case 'create':
+                      const index = result.items.findIndex((r) => r.id === record.id);
+                      // replace existing if found, otherwise append
+                      if (index >= 0) {
+                        result.items[index] = record;
+                        return result.items;
+                      } else {
+                        return [...result.items, record];
+                      }
+                    case 'delete':
+                      return result.items.filter((item) => item.id !== record.id);
+                  }
                   return result.items;
-                } else {
-                  return [...result.items, record];
-                }
-              case 'delete':
-                return result.items.filter((item) => item.id !== record.id);
-            }
-            return result.items;
-          })(action).then((items) => set((result = { ...result, items })));
-        })
+                })(action),
+              }),
+            );
+          },
+          {
+            expand: queryParams.expand,
+            filter: subscriptionFilter,
+          },
+        )
         .then((unsubcribe) => {
           if (stopped) {
             unsubcribe();
@@ -147,47 +151,6 @@ export function watch<T extends { id?: string }>(
             subscriptions.push(unsubcribe);
           }
         });
-
-      if (expand) {
-        additionalSubscriptions?.forEach(({ collection: collectionName, key }) => {
-          const collection = pb.collection(collectionName);
-
-          collection
-            .subscribe('*', ({ action, record: voteRecord }) => {
-              (async function (action: string) {
-                // see https://github.com/pocketbase/pocketbase/discussions/505
-                switch (action) {
-                  case 'update': {
-                    const record = await expand(queryParams.expand, { id: voteRecord[key] });
-                    return result.items.map((item) => (item.id === record.id ? record : item));
-                  }
-                  case 'create': {
-                    const record = await expand(queryParams.expand, { id: voteRecord[key] });
-                    const index = result.items.findIndex((r) => r.id === record.id);
-                    // replace existing if found, otherwise append
-                    if (index >= 0) {
-                      result.items[index] = record;
-                      return result.items;
-                    } else {
-                      return [...result.items, record];
-                    }
-                  }
-                  // Let's hope we never need this
-                  // case 'delete':
-                  // 	return result.items.filter((item) => item.id !== record.id);
-                }
-                return result.items;
-              })(action).then((items) => set((result = { ...result, items })));
-            })
-            .then((unsubcribe) => {
-              if (stopped) {
-                unsubcribe();
-              } else {
-                subscriptions.push(unsubcribe);
-              }
-            });
-        });
-      }
     }
 
     return () => {
