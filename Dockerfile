@@ -1,4 +1,4 @@
-FROM golang:1.20-alpine AS builder
+FROM golang:1.21-alpine AS builder
 WORKDIR /build
 COPY pb/go.mod pb/go.sum pb/main.go ./
 RUN apk --no-cache add upx make git gcc libtool musl-dev ca-certificates dumb-init \
